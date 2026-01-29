@@ -22,7 +22,8 @@ int main(){
         if(arr[i] <= min){
             min = arr[i];
         }
-        else if(arr[i] >= max){
+        
+        if(arr[i] >= max){
             max = arr[i];
         }
     }
