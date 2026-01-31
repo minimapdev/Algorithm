@@ -6,7 +6,7 @@ int main(){
     int sum = 0;
     scanf("%s", s);
 
-    for(int i = 0; i < s[i] != '\0'; i++){
+    for(int i = 0; s[i] != '\0'; i++){
         sum += arr[s[i] - 'A'] +1;
     }
 
