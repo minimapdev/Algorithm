@@ -8,7 +8,7 @@ int main(){
     int a[26] = {};
     cin>>s;
 
-    for(int i = 0; i < s.size(); i++){
+    for(size_t i = 0; i < s.size(); i++){
         if(s[i] >= 97){
             a[s[i]- 97]++;
         }
@@ -17,28 +17,21 @@ int main(){
         }
     }
 
-    int max = a[0];
-    int maxIndex = 0;
-    int maxCount = 0;
+    int most = -1;
+    int mostIndex = 0;
+    bool dup = false;
 
     for(int i = 0; i < 26; i++){
-        if(a[i] >= max){
-            max = a[i];
-            maxIndex = i;
+        if(a[i] > most){
+            most = a[i];
+            mostIndex = i;
+            dup = false;
+        }
+        else if(a[i] == most){
+            dup = true;
         }
     }
 
-    for(int i = 0; i < 26; i++){
-        if(a[i] == max){
-            maxCount++;
-        }
-    }
-
-    if(maxCount == 1){
-    printf("%c", maxIndex + 65);
-    }
-    else{
-        printf("?");
-    }
+    cout << (dup ? '?' : char(mostIndex + 65));
     return 0;
 }
