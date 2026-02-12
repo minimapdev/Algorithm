@@ -6,28 +6,20 @@ int main() {
     cin.tie(nullptr);
 
     int n;
-    int count = -1;
+    int count = 0;
     cin>>n;
-    long long min = 1000000;
-    bool can = false;
-    for(int i = 0; i <= 1000; i++){
-        for(int j = 0; j <= 1667; j++ ){
-            if(5 * i + 3 * j == n){
-                can = true;
-                count = i+j;
 
-                if(min >= count){
-                    min = count;
-                }
-            }
+    while(n>=0){
+        if(n % 5 == 0){
+            count += n / 5;
+            cout<<count;
+            return 0;
         }
+
+        n -= 3;
+        count++;
     }
-    
-    if(can){
-        cout<<min;
-    }
-    else{
-        cout<<-1;
-    }
+
+    cout<<-1;
     return 0;
 }
