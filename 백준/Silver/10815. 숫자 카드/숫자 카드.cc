@@ -1,9 +1,8 @@
 #include <iostream>
-#include <vector>
-#include <algorithm>
+#include <bitset>
 using namespace std;
 
-int a[20000001] = {};
+bitset<200000001> b;
 
 int main(){
     ios::sync_with_stdio(false);
@@ -16,14 +15,14 @@ int main(){
     for(int i = 0; i < n; i++){
         int x;
         cin>>x;
-        a[x+10000000] = 1;
+        b[x+10000000] = 1;
     }
 
     cin>>m;
     for(int i = 0; i < m; i++){
         int x;
         cin>>x;
-        cout<<a[x+10000000]<<' ';
+        cout<<b[x+10000000]<<' ';
     }
 
     return 0;
