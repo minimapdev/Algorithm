@@ -1,5 +1,4 @@
 #include <iostream>
-#include <unordered_set>
 #include <algorithm>
 #include <vector>
 using namespace std;
@@ -11,25 +10,27 @@ int main(){
     int n,m;
     cin>>n>>m;
 
-    unordered_set<string> s;
-    vector<string> v;
-    for(int i = 0; i < n+m; i++){
-        string name;
-        cin>>name;
-        if(s.find(name) != s.end()){
-            v.push_back(name);
-        }
-        else{
-            s.insert(name);
+    vector<string> v1(n), v2;
+    string s;
+
+    for(int i = 0; i < n; i++){
+        cin>>v1[i];
+    }
+
+    sort(v1.begin(), v1.end());
+
+    for(int i = 0; i < m; i++){
+        cin>>s;
+
+        if(binary_search(v1.begin(), v1.end(), s)){
+            v2.push_back(s);
         }
     }
 
-    sort(v.begin(),v.end());
-
-    cout<<v.size()<<"\n";
-    for(int i = 0; i < v.size(); i++){
-        cout<<v[i]<<"\n";
+    sort(v2.begin(), v2.end());
+    cout<<v2.size()<<"\n";
+    for(int i = 0; i < v2.size(); i++){
+        cout<<v2[i]<<"\n";
     }
-
     return 0;
 }
