@@ -4,9 +4,6 @@
 #include <functional>
 using namespace std;
 
-bool cmp(const string& s1, const string& s2){
-    return s1 > s2;
-}
 
 int main(){
     ios::sync_with_stdio(false);
