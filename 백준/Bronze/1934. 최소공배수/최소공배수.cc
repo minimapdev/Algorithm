@@ -2,17 +2,13 @@
 #include<vector>
 using namespace std;
 
-int GetLCM(int big, int small){
-
-    int i = 1;
-    int lcm = 1;
-    while(lcm < big * small){
-        lcm = big * i;
-        i++;
-        if(lcm % small == 0) break;
+int gdc(int a, int b){
+    while(b != 0){
+        int r = a % b;
+        a = b;
+        b = r;
     }
-
-    return lcm;
+    return a;
 }
 
 int main(){
@@ -25,7 +21,7 @@ int main(){
 
     for(int i = 0; i < n; i++){
         cin>>a>>b;
-        cout<<(a > b ? GetLCM(a,b) : GetLCM(b,a))<<"\n";
+        cout<<(a*b) / gdc(a,b)<<"\n";
     }
 
     return 0;
