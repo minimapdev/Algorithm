@@ -1,42 +1,27 @@
 #include <iostream>
-#include <vector>
+using namespace std;
 
 int gcd(int a, int b){
-    while(b!=0){
-        int r = a % b;
-        a = b;
-        b = r;
-    }
-    return a;
+    if (b == 0) return a;
+    else return gcd(b, a % b);
 }
 
 int main(){
-    std::ios::sync_with_stdio(false);
-    std::cin.tie(NULL);
-    int n,x = 0,temp = 0, count = 0;
-    std::cin>>n;
-    std::vector<int> v(n-1);
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    int start, end, pre, cur,x = 0,n;
+    cin>>n;
 
     for(int i = 0; i < n; i++){
-        temp = x;
-        std::cin>>x;
-        if(i != 0) {
-            v[i-1] = x - temp;
-        }
-    }
-    
-    int num = v[0];
+        cin>>cur;
+        if (i == 0) start = cur;
+        else if(i == n - 1) end = cur;
 
-    for(int i = 0; i < v.size(); i++){
-        num = gcd(num, v[i]);
+        if(i != 0) x = gcd(x,cur - pre);
+        pre = cur;
     }
 
-    for(int i = 0; i < v.size(); i++){
-        if(v[i] / num != 1){
-            count+= v[i] / num - 1;
-        }
-    }
-
-    std::cout<<count;
+    cout<< (end - start) / x + 1 - n;
     return 0;
 } 
