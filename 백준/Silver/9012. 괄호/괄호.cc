@@ -1,5 +1,4 @@
 #include <iostream>
-#include <stack>
 using namespace std;
 
 int main() {
@@ -10,26 +9,22 @@ int main() {
     cin>>n;
 
     while(n--){
-        stack<char> st;
         string s;
         cin>>s;
-
+        int balance = 0;
         bool valid = true;
 
-        for(size_t i = 0; i < s.size(); i++){
-            if(s[i] == '('){
-                st.push(s[i]);
-            }
-            else{
-                if(st.empty()){
-                    valid = false;
-                    break;
-                }
-                st.pop();
+        for(char c : s){
+            if(c == '(') balance ++;
+            else balance--;
+
+            if(balance < 0){
+                valid = false;
+                break;
             }
         }
 
-        if (!st.empty()) valid = false;
+        if(balance != 0) valid = false;
         cout << (valid ? "YES\n" : "NO\n");
     }
     return 0;
