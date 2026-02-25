@@ -77,14 +77,14 @@ int main(){
 
     int n, command;
     cin>>n;
-    Stack * stack = new Stack;
-    stack->Init();
+
+    Stack stack;
+    stack.Init();
 
     for(int i = 0; i < n; i++){
         cin>>command;
-        StackCommand(stack, command);
+        StackCommand(&stack, command);
     }
 
-    free(stack);
     return 0;
 }
