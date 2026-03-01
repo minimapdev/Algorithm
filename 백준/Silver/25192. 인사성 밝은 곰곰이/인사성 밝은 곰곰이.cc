@@ -7,19 +7,17 @@ int main(){
     cin.tie(NULL);
     int n, count = 0;
     unordered_set<string> s;
+    string str;
     cin>>n;
 
     for(int i = 0; i < n; i++){
-        string str;
         cin>>str;
         if(str == "ENTER"){
             count += s.size();
-            s.clear();
+            s = unordered_set<string> ();
         }
         else{
-            if(s.find(str) == s.end()){
-                s.insert(str);
-            } 
+            s.insert(str);
         }
     }
 
