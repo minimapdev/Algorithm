@@ -1,31 +1,29 @@
-#include<iostream>
+#include <iostream>
 #include <vector>
 using namespace std;
 
-int main(){
+int main() {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
-    int n,k;
-    int sum = 0;
-    cin>>n>>k;
-    vector<int> v(n+1);
-    vector<int> rangeSum(n+1);
-    vector<int> result(n-k+1);
-    for(int i = 1; i <= n; i++){
-        cin>>v[i];
-        sum+= v[i];
-        rangeSum[i] = sum;
+
+    int n, k;
+    cin >> n >> k;
+
+    vector<int> v(n + 1);
+    vector<int> prefix(n + 1, 0);
+
+    for (int i = 1; i <= n; i++) {
+        cin >> v[i];
+        prefix[i] = prefix[i - 1] + v[i];
     }
 
-    int max = -100000001;
+    int answer = -100000001;
 
-    for(int i = 0; i < result.size(); i++){
-        result[i] = rangeSum[k + i] - rangeSum[i];
-        if(result[i] >= max){
-            max = result[i];
-        }
+    for (int i = 0; i <= n - k; i++) {
+        int sum = prefix[i + k] - prefix[i];
+        if (sum > answer) answer = sum;
     }
 
-    cout<<max;
+    cout << answer;
     return 0;
 }
