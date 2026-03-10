@@ -1,5 +1,4 @@
 #include <iostream>
-#include <algorithm>
 using namespace std;
 
 int main(){
@@ -9,7 +8,15 @@ int main(){
     int x,y,w,h;
     cin>>x>>y>>w>>h;
 
-   cout<< min(min(x,y), min(w-x,h-y));
+    int diffX = w-x;
+    int diffY = h-y;
+
+    if(diffX <= diffY){
+        cout<< ((x<=y) ? (x <= diffX ? x : diffX) : (y <= diffX ? y : diffX));
+    }   
+    else{
+        cout<< ((x<=y) ? (x <= diffY ? x : diffY) : (y <= diffY ? y : diffY));
+    }
     
     return 0;
 }
