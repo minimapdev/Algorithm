@@ -30,8 +30,8 @@ int main()
             continue;
         }
 
-        k -= v[index];
-        num++;
+        num += k / v[index];
+        k %= v[index];
     }
     cout << num;
     return 0;
