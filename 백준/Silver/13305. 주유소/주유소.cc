@@ -7,7 +7,7 @@ int main()
     cin.tie(NULL);
 
     int n;
-    int ans = 0;
+    long long ans = 0;
     int cur = 0, next = 1, road = 0;
     cin >> n;
     vector<int> roadLen(n - 1);
