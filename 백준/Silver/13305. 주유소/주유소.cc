@@ -10,8 +10,8 @@ int main()
     long long ans = 0;
     int cur = 0, next = 1, road = 0;
     cin >> n;
-    vector<int> roadLen(n - 1);
-    vector<int> cost(n);
+    vector<long long> roadLen(n - 1);
+    vector<long long> cost(n);
 
     for (int i = 0; i < n - 1; i++)
     {
