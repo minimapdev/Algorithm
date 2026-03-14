@@ -7,7 +7,8 @@ int main()
     cin.tie(NULL);
 
     int n;
-    int ans = 0, totalRoad = 0;
+    int ans = 0;
+    int cur = 0, next = 1, road = 0;
     cin >> n;
     vector<int> roadLen(n - 1);
     vector<int> cost(n);
@@ -15,33 +16,26 @@ int main()
     for (int i = 0; i < n - 1; i++)
     {
         cin >> roadLen[i];
-        totalRoad += roadLen[i];
     }
     for (int i = 0; i < n; i++)
     {
         cin >> cost[i];
     }
-    int currentRoad = 0;
-    for (int i = 0; i < n - 1; i++)
+    int count = n - 1;
+    while (count--)
     {
-        if (currentRoad >= totalRoad)
-            break;
-        for (int j = i + 1; j < n; j++)
+        if (cost[cur] > cost[next])
         {
-            if (cost[i] <= cost[j])
-            {
-                ans += (cost[i] * roadLen[j - 1]);
-                currentRoad += roadLen[j - 1];
-            }
-            else
-            {
-                ans += (cost[i] * roadLen[j - 1]);
-                currentRoad += roadLen[j - 1];
-                break;
-            }
+            ans += (roadLen[road++] * cost[cur]);
+            cur++;
+            next++;
+        }
+        else
+        {
+            ans += (roadLen[road++] * cost[cur]);
+            next++;
         }
     }
-
     cout << ans;
     return 0;
 }
