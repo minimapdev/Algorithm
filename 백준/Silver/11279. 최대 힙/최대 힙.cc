@@ -2,61 +2,64 @@
 #include <vector>
 using namespace std;
 
-class PriorityQueue
+template <typename T, typename Comp> class PriorityQueue
 {
   private:
-    vector<int> heap;
-    int GetParentIndex(int idx)
+    vector<T> heap;
+    Comp comp;
+
+    int GetParentIdx(int idx)
     {
         return idx / 2;
     }
-    int GetLChildIndex(int idx)
+    int GetLChildIdx(int idx)
     {
         return idx * 2;
     }
-    int GetRChildIndex(int idx)
+    int GetRChildIdx(int idx)
     {
         return idx * 2 + 1;
     }
-    int GetHiPriChildIndex(int idx)
+
+    int GetHiPriChildIdx(int idx)
     {
-        int left = GetLChildIndex(idx);
+        int left = GetLChildIdx(idx);
         if (left >= heap.size())
         {
             return 0;
         }
-
-        int right = GetRChildIndex(idx);
+        int right = GetRChildIdx(idx);
         if (right >= heap.size())
         {
             return left;
         }
 
-        if (heap[left] > heap[right])
-            return left;
-        else
-            return right;
+        return (comp(heap[left], heap[right]) ? right : left);
     }
 
   public:
     PriorityQueue()
     {
-        heap.push_back(0);
+        heap.push_back(T());
     }
-    bool empty() const
+    bool empty()
     {
         return heap.size() == 1;
     }
-    void push(int n)
+    int size() const
     {
-        heap.push_back(n);
+        return heap.size() - 1;
+    }
+    void push(const T &data)
+    {
+        heap.push_back(data);
         int idx = heap.size() - 1;
 
         while (idx > 1)
         {
-            int parent = GetParentIndex(idx);
+            int parent = GetParentIdx(idx);
 
-            if (heap[parent] < n)
+            if (comp(heap[parent], data))
             {
                 heap[idx] = heap[parent];
                 idx = parent;
@@ -64,33 +67,42 @@ class PriorityQueue
             else
                 break;
         }
-        heap[idx] = n;
+        heap[idx] = data;
     }
-    int pop()
+    T pop()
     {
         if (empty())
-            return 0;
-        int retData = heap[1];
-        int lastElem = heap.back();
+            return T();
+
+        T retData = heap[1];
+        T lastElem = heap.back();
         heap.pop_back();
 
         if (empty())
         {
             return retData;
         }
+
         int parentIdx = 1;
         int childIdx;
 
-        while ((childIdx = GetHiPriChildIndex(parentIdx)) != 0)
+        while ((childIdx = GetHiPriChildIdx(parentIdx)) != 0)
         {
-            if (lastElem >= heap[childIdx])
+            if (!comp(lastElem, heap[childIdx]))
                 break;
-
             heap[parentIdx] = heap[childIdx];
             parentIdx = childIdx;
         }
         heap[parentIdx] = lastElem;
         return retData;
+    }
+};
+
+struct MaxComp
+{
+    bool operator()(int a, int b)
+    {
+        return a < b;
     }
 };
 
@@ -100,7 +112,7 @@ int main()
     cin.tie(NULL);
     int n;
     cin >> n;
-    PriorityQueue pq;
+    PriorityQueue<int, MaxComp> pq;
 
     for (int i = 0; i < n; i++)
     {
