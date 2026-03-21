@@ -1,20 +1,30 @@
 #include <iostream>
+#include <queue>
 #include <vector>
 using namespace std;
 
 vector<int> adjList[101];
+queue<int> q;
 bool visited[101] = {};
 int ans = 0;
 
-void dfs(int startV)
+void bfs(int startV)
 {
+    q.push(startV);
     visited[startV] = true;
-    for (int next : adjList[startV])
+    while (!q.empty())
     {
-        if (visited[next])
-            continue;
-        ans++;
-        dfs(next);
+        int current = q.front();
+        q.pop();
+
+        for (int next : adjList[current])
+        {
+            if (visited[next])
+                continue;
+            q.push(next);
+            visited[next] = true;
+            ans++;
+        }
     }
 }
 int main()
@@ -32,7 +42,7 @@ int main()
         adjList[u].push_back(v);
         adjList[v].push_back(u);
     }
-    dfs(1);
+    bfs(1);
     cout << ans;
     return 0;
 }
