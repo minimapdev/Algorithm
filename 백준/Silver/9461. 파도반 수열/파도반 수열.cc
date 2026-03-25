@@ -3,15 +3,13 @@ using namespace std;
 long long dp[101] = {};
 long long Padoban(int n)
 {
-    dp[1] = 1;
-    dp[2] = 1;
-    dp[3] = 1;
+    if (n <= 3)
+        return 1;
 
-    for (int i = 4; i <= n; i++)
-    {
-        dp[i] = dp[i - 3] + dp[i - 2];
-    }
+    if (dp[n] != 0)
+        return dp[n];
 
+    dp[n] = Padoban(n - 3) + Padoban(n - 2);
     return dp[n];
 }
 
