@@ -6,10 +6,13 @@ int dp[1000001] = {};
 
 int Fib(int n)
 {
-    dp[1] = 1;
-    dp[2] = 2;
-    for (int i = 3; i <= n; i++)
-        dp[i] = (dp[i - 1] + dp[i - 2]) % 15746;
+    if (n <= 2)
+        return n;
+    if (dp[n] != 0)
+        return dp[n];
+
+    dp[n] = (Fib(n - 1) + Fib(n - 2)) % 15746;
+
     return dp[n];
 }
 int main()
